@@ -14,14 +14,30 @@ $(document).ready(function() {
                        document.getElementById('selection').appendChild(source);
             }
           }
+          function news(site) {
+           $.ajax({
+        url: "https://newsapi.org/v2/top-headlines?sources=" + site,
+        data: {apiKey: APIKEY},
+        success: function(articles) {
+          for  (var a= 0; a < articles.articles.length; a++) {
+              var headline = document.createElement("P")
+              headline.innerHTML = articles.articles[a].title;
+              document.getElementById("Article").appendChild(headline)
+           console.log(articles)
+          }
+        
         }
     })
+          }  $('#source').submit(function(event) {
+        event.preventDefault();
+        news(document.getElementById("selection").value)
+     });
+        }
+    })
+    
     // .done(function( data ) {
     //   console.log( data );
     //   console.log( data.status);
     // });
-     $('#source').submit(function(event) {
-        event.preventDefault();
-        alert(document.getElementById("selection").value)
-     });
+   
 })
