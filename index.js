@@ -11,10 +11,10 @@ $(document).ready(function() {
 		},
 		success: function(data) {
 			if (data.status == "ok") {
-				console.log(data)
+				console.log(data);
 				for (var i = 0; i < data.sources.length; i++) {
 					var source = document.createElement("OPTION");
-					source.setAttribute("value", data.sources[i].id)
+					source.setAttribute("value", data.sources[i].id);
 					source.innerHTML = data.sources[i].name;
 					document.getElementById('selection').appendChild(source);
 				}
@@ -27,22 +27,25 @@ $(document).ready(function() {
 						apiKey: APIKEY
 					},
 					success: function(articles) {
+						document.getElementById("Article").innerHTML = "";
 						for (var a = 0; a < articles.articles.length; a++) {
-							var headline = document.createElement("P")
+							var ul = document.getElementById("UL")
+							var list = document.createElement("li");
 							var Anchor = document.createElement('a');
 							Anchor.href = articles.articles[a].url;
-							Anchor.innerHTML = articles.articles[a].title + "<br>";
-							headline.innerHTML = articles.articles[a].description;
-							document.getElementById("Article").appendChild(Anchor).appendChild(headline)
-							console.log(articles)
+							Anchor.innerHTML = articles.articles[a].title + "." + "<br>";
+							list.innerHTML = articles.articles[a].description + "." + "<br>";
+							list.appendChild(Anchor);
+							document.getElementById("Article").appendChild(list);
+							console.log(articles);
 						}
 					}
-				})
+				});
 			}
 			$('#source').submit(function(event) {
 				event.preventDefault();
-				news(document.getElementById("selection").value)
+				news(document.getElementById("selection").value);
 			});
 		}
-	})
+	});
 })
