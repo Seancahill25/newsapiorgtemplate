@@ -29,14 +29,18 @@ $(document).ready(function() {
 					success: function(articles) {
 						document.getElementById("Article").innerHTML = "";
 						for (var a = 0; a < articles.articles.length; a++) {
-							var ul = document.getElementById("UL")
+							var ul = document.createElement("UL");
 							var list = document.createElement("li");
 							var Anchor = document.createElement('a');
+							var img = document.createElement('IMG')
 							Anchor.href = articles.articles[a].url;
-							Anchor.innerHTML = articles.articles[a].title + "." + "<br>";
+							Anchor.innerHTML = articles.articles[a].title + "." + "<br>" + "<br>";
+							img.src = articles.articles[a].urlToImage;
 							list.innerHTML = articles.articles[a].description + "." + "<br>";
-							list.appendChild(Anchor);
-							document.getElementById("Article").appendChild(list);
+							Anchor.appendChild(img);
+							Anchor.appendChild(list);
+							ul.appendChild(Anchor);
+							document.getElementById("Article").appendChild(ul);
 							console.log(articles);
 						}
 					}
